@@ -1,23 +1,13 @@
-image:
-  file: .gitpod.Dockerfile
+image: gitpod/workspace-full-vnc
 
 ports:
-  - port: 8080
+  - port: 6080
     onOpen: open-preview
-  - port: 5037
-    onOpen: ignore
-  - port: 5554-5555
+  - port: 5900
     onOpen: ignore
 
 tasks:
   - init: |
-      echo "Installing Android SDK..."
-      sdk-install
-      ./gradlew build
-
-vscode:
-  extensions:
-    - vscjava.vscode-java-pack
-    - redhat.java
-    - mathiasfrohlich.Kotlin
-    - fwcd.kotlin
+      sudo apt-get update
+      sudo apt-get install -y android-sdk
+      echo "Android SDK installed"
