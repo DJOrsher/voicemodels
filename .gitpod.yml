@@ -1,0 +1,23 @@
+image:
+  file: .gitpod.Dockerfile
+
+ports:
+  - port: 8080
+    onOpen: open-preview
+  - port: 5037
+    onOpen: ignore
+  - port: 5554-5555
+    onOpen: ignore
+
+tasks:
+  - init: |
+      echo "Installing Android SDK..."
+      sdk-install
+      ./gradlew build
+
+vscode:
+  extensions:
+    - vscjava.vscode-java-pack
+    - redhat.java
+    - mathiasfrohlich.Kotlin
+    - fwcd.kotlin
