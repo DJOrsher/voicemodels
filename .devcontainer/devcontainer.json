@@ -1,12 +1,11 @@
 {
     "name": "Android Development Environment",
-    "image": "mcr.microsoft.com/devcontainers/universal:2",
+    "image": "mcr.microsoft.com/devcontainers/java:17",
     "features": {
         "ghcr.io/devcontainers/features/java:1": {
             "version": "17",
             "installGradle": true
-        },
-        "ghcr.io/devcontainers/features/android-sdk:1": {}
+        }
     },
     "customizations": {
         "vscode": {
@@ -18,7 +17,10 @@
             ]
         }
     },
-    "forwardPorts": [8080],
-    "postCreateCommand": "yes | sdkmanager --licenses && sdkmanager 'platforms;android-30' 'build-tools;30.0.3'",
-    "remoteUser": "codespace"
+    "postCreateCommand": "wget https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip && unzip commandlinetools-linux-9477386_latest.zip && mkdir -p /home/vscode/android-sdk/cmdline-tools && mv cmdline-tools latest && mv latest /home/vscode/android-sdk/cmdline-tools/ && export ANDROID_HOME=/home/vscode/android-sdk && yes | /home/vscode/android-sdk/cmdline-tools/latest/bin/sdkmanager --licenses && /home/vscode/android-sdk/cmdline-tools/latest/bin/sdkmanager 'platform-tools' 'platforms;android-30' 'build-tools;30.0.3'",
+    "remoteEnv": {
+        "ANDROID_HOME": "/home/vscode/android-sdk",
+        "PATH": "${containerEnv:PATH}:/home/vscode/android-sdk/platform-tools:/home/vscode/android-sdk/cmdline-tools/latest/bin"
+    },
+    "remoteUser": "vscode"
 }
